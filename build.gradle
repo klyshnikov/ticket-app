@@ -1,0 +1,27 @@
+plugins {
+	id 'io.freefair.lombok' apply false
+	id 'org.springframework.boot' apply false
+	id 'io.spring.dependency-management' apply false
+}
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'io.freefair.lombok'
+	apply plugin: 'io.spring.dependency-management'
+
+	dependencyManagement {
+		imports {
+			mavenBom("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
+		}
+
+		dependencies {
+			dependency "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion"
+			dependency "org.mapstruct:mapstruct:$mapstructVersion"
+			dependency "org.mapstruct:mapstruct-processor:$mapstructVersion"
+		}
+	}
+
+	repositories {
+		mavenCentral()
+	}
+}

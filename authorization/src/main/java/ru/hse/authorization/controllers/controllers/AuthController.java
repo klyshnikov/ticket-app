@@ -49,6 +49,20 @@ public class AuthController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<String> getUserInfo() {
+        try {
+            var currentUser = authenticationService.getCurrentUser();
+            return ResponseEntity.ok(
+                    "Пользователь \n" +
+                    "Имя: " + currentUser.getNickname() + "\n" +
+                    "Логин: " + currentUser.getEmail()
+            );
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @GetMapping("/get-all")
     public List<UserInService> getAll() {
         return userService.getAllUsers();

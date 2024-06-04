@@ -9,6 +9,7 @@ import ru.hse.authorization.mappers.UserMapper;
 import ru.hse.authorization.repository.dto.UserInRepository;
 import ru.hse.authorization.repository.repository.UserRepository;
 import ru.hse.authorization.services.dto.UserInService;
+import ru.hse.authorization.services.exceptions.UserIsNotRegisteredException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,11 +75,14 @@ public class UserService {
      *
      * @return текущий пользователь
      */
-    public UserInService getCurrentUser() {
+
+    public UserInService getCurrentUserByName() {
         // Получение имени пользователя из контекста Spring Security
         var username = SecurityContextHolder.getContext().getAuthentication().getName();
         return getByUsername(username);
     }
+
+
 
     public List<UserInService> getAllUsers() {
         UserMapper mapper = new UserMapper();
@@ -95,5 +99,23 @@ public class UserService {
     }
 
 
+    public String getUserEmail() throws UserIsNotRegisteredException {
+        var currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (currentUser instanceof UserInService) {
+            return ((UserInService) currentUser).getEmail();
+        }
+
+        throw new UserIsNotRegisteredException("На данный момент вы незарегистрированный пользователь");
+    }
+
+    public UserInService getUserByEmail(String email) {
+        UserMapper mapper = new UserMapper();
+        return mapper.RepositoryUserToServiceUser(repository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден")));
+    }
+
+    public UserInService getCurrentUserByEmail() throws UserIsNotRegisteredException {
+        return getUserByEmail(getUserEmail());
+    }
 }
 

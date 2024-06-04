@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-lesson2.yaml
+  - changeSet:
+      id: 1
+      author: misha
+      changes:
+        - createTable:
+            tableName: station
+            columns:
+              - column:
+                  name : id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name : station
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: order
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+#                    foreignKeyName: user_id_in_order_foreign
+#                    referencedTableName: user
+#                    referencedColumnNames: id
+              - column:
+                  name: from_station_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: from_station_id_foreign
+                    references: station(id)
+              - column:
+                  name: to_station_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: to_station_id_foreign
+                    references: station(id)
+              - column:
+                  name: status
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: timestamp
+                  constraints:
+                    nullable: false

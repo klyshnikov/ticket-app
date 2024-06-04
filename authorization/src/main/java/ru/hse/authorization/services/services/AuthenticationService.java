@@ -2,13 +2,13 @@ package ru.hse.authorization.services.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.hse.authorization.domain.JwtAuthenticationResponse;
 import ru.hse.authorization.domain.SignUpRequest;
 import ru.hse.authorization.domain.SignInRequest;
 import ru.hse.authorization.services.dto.UserInService;
+import ru.hse.authorization.services.exceptions.UserIsNotRegisteredException;
 import ru.hse.authorization.services.filter.UserChainHandler;
 import ru.hse.authorization.services.filter.UserChainHandlerStarter;
 
@@ -74,5 +74,9 @@ public class AuthenticationService {
         var jwt = jwtService.generateToken(user);
 
         return new JwtAuthenticationResponse(jwt);
+    }
+
+    public UserInService getCurrentUser() throws UserIsNotRegisteredException {
+        return userService.getCurrentUserByEmail();
     }
 }

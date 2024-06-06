@@ -22,6 +22,6 @@ public class StationInRepository implements Serializable {
         this.station = station;
     }
 
-    @Column(name = "station", nullable = false)
+    @Column(name = "station", nullable = false, unique = true)
     public String station;
 }

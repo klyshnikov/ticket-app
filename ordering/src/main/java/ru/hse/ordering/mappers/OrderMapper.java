@@ -7,7 +7,7 @@ public class OrderMapper {
     public OrderInService OrderInRepositoryToOrderInService(OrderInRepository orderInRepository) {
         return new OrderInService(
                 orderInRepository.getCurrentId(),
-                orderInRepository.user_id,
+                orderInRepository.userId,
                 orderInRepository.from_station_id,
                 orderInRepository.to_station_id,
                 orderInRepository.status,
@@ -17,7 +17,18 @@ public class OrderMapper {
 
     public OrderInRepository OrderInServiceToOrderInRepository(OrderInService orderInService) {
         return new OrderInRepository(
-                orderInService.user_id,
+                orderInService.userId,
+                orderInService.from_station_id,
+                orderInService.to_station_id,
+                orderInService.status,
+                orderInService.created
+        );
+    }
+
+    public OrderInRepository OrderInServiceToOrderInRepositoryDeep(OrderInService orderInService) {
+        return new OrderInRepository(
+                orderInService.getCurrentId(),
+                orderInService.userId,
                 orderInService.from_station_id,
                 orderInService.to_station_id,
                 orderInService.status,

@@ -1,9 +1,7 @@
 package ru.hse.ordering.services.dto;
 
-import jakarta.persistence.*;
 import lombok.RequiredArgsConstructor;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 
@@ -25,14 +23,14 @@ public class OrderInService{
             Timestamp created
     ) {
         this.id = id;
-        this.user_id = user_id;
+        this.userId = user_id;
         this.from_station_id = from_station_id;
         this.to_station_id = to_station_id;
         this.status = status;
         this.created = created;
     }
 
-    public Long user_id;
+    public Long userId;
 
     public Long from_station_id;
 

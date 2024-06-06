@@ -31,7 +31,7 @@ public class UserInRepository implements Serializable {
     @Column(name = "nickname", nullable = false)
     public String nickname;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     public String email;
 
     @Column(name = "password", nullable = false)

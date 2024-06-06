@@ -26,7 +26,23 @@ public class OrderInRepository implements Serializable {
             Integer status,
             Timestamp created
     ) {
-        this.user_id = user_id;
+        this.userId = user_id;
+        this.from_station_id = from_station_id;
+        this.to_station_id = to_station_id;
+        this.status = status;
+        this.created = created;
+    }
+
+    public OrderInRepository(
+            Long id,
+            Long user_id,
+            Long from_station_id,
+            Long to_station_id,
+            Integer status,
+            Timestamp created
+    ) {
+        this.id = id;
+        this.userId = user_id;
         this.from_station_id = from_station_id;
         this.to_station_id = to_station_id;
         this.status = status;
@@ -34,7 +50,7 @@ public class OrderInRepository implements Serializable {
     }
 
     @Column(name = "user_id", nullable = false)
-    public Long user_id;
+    public Long userId;
 
     @Column(name = "from_station_id", nullable = false)
     public Long from_station_id;

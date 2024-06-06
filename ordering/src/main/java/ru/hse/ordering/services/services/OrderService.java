@@ -1,11 +1,14 @@
 package ru.hse.ordering.services.services;
 
+//import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.hse.authorization.repository.repository.UserRepository;
 import ru.hse.authorization.services.dto.UserInService;
 import ru.hse.authorization.services.exceptions.UserIsNotRegisteredException;
 import ru.hse.authorization.services.services.AuthenticationService;
 import ru.hse.authorization.services.services.UserService;
+import ru.hse.ordering.mappers.OrderMapper;
 import ru.hse.ordering.mappers.StationMapper;
 import ru.hse.ordering.repository.dto.OrderInRepository;
 import ru.hse.ordering.repository.dto.StationInRepository;
@@ -18,22 +21,44 @@ import ru.hse.ordering.services.exceptions.StationIsNotFoundException;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
     private final StationRepository stationRepository;
     private final AuthenticationService authenticationService;
+    private final UserRepository userRepository;
 
     @Autowired
     public OrderService(
             OrderRepository orderRepository,
             StationRepository stationRepository,
-            AuthenticationService authenticationService
-    ) {
+            AuthenticationService authenticationService,
+            UserRepository userRepository) {
         this.orderRepository = orderRepository;
         this.stationRepository = stationRepository;
         this.authenticationService = authenticationService;
+        this.userRepository = userRepository;
+    }
+
+    public List<OrderInService> getAll() {
+        OrderMapper mapper = new OrderMapper();
+        List<OrderInRepository> orderInRepositoryList = orderRepository.findAll();
+        List<OrderInService> orderInServiceList = new ArrayList<OrderInService>();
+
+        for (var order : orderInRepositoryList) {
+            orderInServiceList.add(mapper.OrderInRepositoryToOrderInService(order));
+        }
+
+        return orderInServiceList;
+    }
+
+    public void save(OrderInService orderInService) {
+        OrderMapper mapper = new OrderMapper();
+
+        orderRepository.save(mapper.OrderInServiceToOrderInRepositoryDeep(orderInService));
     }
 
     public void makeOrder(String stationFrom, String stationTo) throws Exception {
@@ -54,18 +79,11 @@ public class OrderService {
                 = stationRepository
                 .findByStation(stationTo)
                 .orElseThrow(
-                        () -> new StationIsNotFoundException("Станция отправления не найдена. Проверьте данные")
+                        () -> new StationIsNotFoundException("Станция назначения не найдена. Проверьте данные")
                 );
 
         Long currentUserId = authenticationService.getCurrentUser().getCurrentId();
 
-        if (stationInRepositoryFrom.getCurrentId() == null) {
-            throw new Exception("Kurwa");
-        }
-
-        if (stationInRepositoryTo.getCurrentId() == null) {
-            throw new Exception("Kurwa");
-        }
 
         OrderInRepository order = new OrderInRepository(
                 currentUserId,
@@ -76,5 +94,30 @@ public class OrderService {
         );
 
         orderRepository.save(order);
+    }
+
+    public String getMyOrders() throws UserIsNotRegisteredException {
+        Long currentUserId = authenticationService.getCurrentUser().getCurrentId();
+        var orders = orderRepository.findAllByUserId(currentUserId);
+
+        if (orders.isEmpty()) {
+            return "У вас нет билетов.";
+        }
+
+        StringBuilder result = new StringBuilder("Ваши билеты: \n");
+        for (var order : orders) {
+            result.append("\nИдентификатор: " + order.getCurrentId() + "\n");
+            result.append("Отправление: " + order.from_station_id.toString() + "\n");
+            result.append("Прибытие: " + order.to_station_id.toString() + "\n");
+            if (order.status == 0) {
+                result.append("Статус еще не назначен, ожидайте. \n");
+            } else if (order.status == 1) {
+                result.append("Статус: Билет исправен \n");
+            } else {
+                result.append("Статус: Блилет отменен и не может быть выдан. \n");
+            }
+        }
+
+        return result.toString();
     }
 }

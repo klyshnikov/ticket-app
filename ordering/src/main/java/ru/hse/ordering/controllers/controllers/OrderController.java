@@ -3,6 +3,7 @@ package ru.hse.ordering.controllers.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hse.authorization.services.exceptions.UserIsNotRegisteredException;
 import ru.hse.authorization.services.services.AuthenticationService;
 import ru.hse.ordering.services.dto.OrderInService;
 import ru.hse.ordering.services.dto.StationInService;
@@ -45,13 +46,18 @@ public class OrderController {
             @RequestParam String stationTo
     ) {
         try {
-            Long currentUserId = authenticationService.getCurrentUser().getCurrentId();
+            //Long currentUserId = authenticationService.getCurrentUser().getCurrentId();
             orderService.makeOrder(stationFrom, stationTo);
             return ResponseEntity.ok("Ваш заказ успешно сделан. Ожидайте обарботки.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
+    }
+
+    @GetMapping("/get-my-orders")
+    public ResponseEntity<String> getMyOrders() throws UserIsNotRegisteredException {
+        return ResponseEntity.ok(orderService.getMyOrders());
     }
 
 //    @GetMapping("/get-all-orders")

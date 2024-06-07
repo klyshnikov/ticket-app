@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
 
-
 @Getter
 @RequiredArgsConstructor
 public class StationInService  {

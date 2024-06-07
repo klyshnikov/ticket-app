@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hse.authorization.controllers.api.AuthApi;
 import ru.hse.authorization.domain.JwtAuthenticationResponse;
 import ru.hse.authorization.domain.SignInRequest;
 import ru.hse.authorization.domain.SignUpRequest;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController {
+public class AuthController implements AuthApi {
     private final UserService userService;
     private final AuthenticationService authenticationService;
 
@@ -30,6 +31,7 @@ public class AuthController {
 
     @Operation(summary = "Регистрация пользователя")
     @PostMapping("/sign-up")
+    @Override
     public ResponseEntity<String> signUp(@RequestBody @Valid SignUpRequest request) {
         try {
             return ResponseEntity.ok(authenticationService.signUp(request));
@@ -41,6 +43,7 @@ public class AuthController {
 
     @Operation(summary = "Авторизация пользователя")
     @PostMapping("/sign-in")
+    @Override
     public ResponseEntity<String> signIn(@RequestBody @Valid SignInRequest request) {
         try {
             return ResponseEntity.ok(authenticationService.signIn(request));
@@ -49,6 +52,7 @@ public class AuthController {
         }
     }
 
+    @Override
     @GetMapping
     public ResponseEntity<String> getUserInfo() {
         try {
@@ -63,6 +67,7 @@ public class AuthController {
         }
     }
 
+    @Override
     @GetMapping("/get-all")
     public List<UserInService> getAll() {
         return userService.getAllUsers();

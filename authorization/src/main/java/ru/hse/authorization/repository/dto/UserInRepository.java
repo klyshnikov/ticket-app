@@ -2,12 +2,14 @@ package ru.hse.authorization.repository.dto;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
+@Getter
 @Table(name = "users")
 @RequiredArgsConstructor
 public class UserInRepository implements Serializable {
@@ -29,15 +31,15 @@ public class UserInRepository implements Serializable {
     private Long id;
 
     @Column(name = "nickname", nullable = false)
-    public String nickname;
+    private String nickname;
 
     @Column(name = "email", nullable = false, unique = true)
-    public String email;
+    private String email;
 
     @Column(name = "password", nullable = false)
-    public String password;
+    private String password;
 
     @Column(name = "created", nullable = false)
-    public Timestamp timestamp;
+    private Timestamp timestamp;
 
 }

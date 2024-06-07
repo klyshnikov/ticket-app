@@ -22,9 +22,9 @@ public class StationService {
         this.stationRepository = stationRepository;
     }
 
-    public void add(StationInService stationInService) {
+    public void add(String stationName) {
         StationMapper mapper = new StationMapper();
-        stationRepository.save(mapper.StationInServiceToStationInRepository(stationInService));
+        stationRepository.save(mapper.StationInServiceToStationInRepository(new StationInService(stationName)));
     }
 
     public List<StationInService> getAll() {

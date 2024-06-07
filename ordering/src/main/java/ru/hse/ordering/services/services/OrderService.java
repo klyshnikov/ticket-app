@@ -107,11 +107,11 @@ public class OrderService {
         StringBuilder result = new StringBuilder("Ваши билеты: \n");
         for (var order : orders) {
             result.append("\nИдентификатор: " + order.getCurrentId() + "\n");
-            result.append("Отправление: " + order.from_station_id.toString() + "\n");
-            result.append("Прибытие: " + order.to_station_id.toString() + "\n");
-            if (order.status == 0) {
+            result.append("Отправление: " + stationRepository.getAllById(order.getFrom_station_id()).get(0).getStation() + "\n");
+            result.append("Прибытие: " + stationRepository.getAllById(order.getTo_station_id()).get(0).getStation() + "\n");
+            if (order.getStatus() == 0) {
                 result.append("Статус еще не назначен, ожидайте. \n");
-            } else if (order.status == 1) {
+            } else if (order.getStatus() == 1) {
                 result.append("Статус: Билет исправен \n");
             } else {
                 result.append("Статус: Блилет отменен и не может быть выдан. \n");

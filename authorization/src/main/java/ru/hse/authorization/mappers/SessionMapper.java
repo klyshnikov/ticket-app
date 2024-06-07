@@ -8,9 +8,9 @@ public class SessionMapper {
             SessionInService sessionInService
     ) {
         return new SessionInRepository(
-                sessionInService.user_id,
-                sessionInService.tocken,
-                sessionInService.expires
+                sessionInService.getUser_id(),
+                sessionInService.getTocken(),
+                sessionInService.getExpires()
         );
     }
 
@@ -19,8 +19,8 @@ public class SessionMapper {
     ) {
         return new SessionInService(
                 sessionInRepository.getCurrentId(),
-                sessionInRepository.user_id,
-                sessionInRepository.tocken,
-                sessionInRepository.expires);
+                sessionInRepository.getUser_id(),
+                sessionInRepository.getTocken(),
+                sessionInRepository.getExpires());
     }
 }

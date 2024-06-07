@@ -24,13 +24,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    /**
-     * Регистрация пользователя
-     *
-     * @param request данные пользователя
-     * @return токен
-     */
-    public JwtAuthenticationResponse signUp(SignUpRequest request) {
+    public String signUp(SignUpRequest request) {
 
         UserChainHandler userChainHandler = new UserChainHandlerStarter();
         userChainHandler.handle(request);
@@ -49,23 +43,10 @@ public class AuthenticationService {
 
         sessionService.save(savedUser, jwt);
 
-        return new JwtAuthenticationResponse(jwt);
-
+        return jwt;
     }
 
-    /**
-     * Аутентификация пользователя
-     *
-     * @param request данные пользователя
-     * @return токен
-     */
-    public JwtAuthenticationResponse signIn(SignInRequest request) {
-//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-//                request.getUsername(),
-//                request.getPassword()
-//        ));
-
-
+    public String signIn(SignInRequest request) {
 
         var user = userService
                 .userDetailsService()
@@ -73,7 +54,8 @@ public class AuthenticationService {
 
         var jwt = jwtService.generateToken(user);
 
-        return new JwtAuthenticationResponse(jwt);
+        return jwt;
+
     }
 
     public UserInService getCurrentUser() throws UserIsNotRegisteredException {

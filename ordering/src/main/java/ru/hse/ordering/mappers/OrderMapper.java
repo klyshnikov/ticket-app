@@ -7,32 +7,32 @@ public class OrderMapper {
     public OrderInService OrderInRepositoryToOrderInService(OrderInRepository orderInRepository) {
         return new OrderInService(
                 orderInRepository.getCurrentId(),
-                orderInRepository.userId,
-                orderInRepository.from_station_id,
-                orderInRepository.to_station_id,
-                orderInRepository.status,
-                orderInRepository.created
+                orderInRepository.getUserId(),
+                orderInRepository.getFrom_station_id(),
+                orderInRepository.getTo_station_id(),
+                orderInRepository.getStatus(),
+                orderInRepository.getCreated()
         );
     }
 
     public OrderInRepository OrderInServiceToOrderInRepository(OrderInService orderInService) {
         return new OrderInRepository(
-                orderInService.userId,
-                orderInService.from_station_id,
-                orderInService.to_station_id,
-                orderInService.status,
-                orderInService.created
+                orderInService.getUserId(),
+                orderInService.getFrom_station_id(),
+                orderInService.getTo_station_id(),
+                orderInService.getStatus(),
+                orderInService.getCreated()
         );
     }
 
     public OrderInRepository OrderInServiceToOrderInRepositoryDeep(OrderInService orderInService) {
         return new OrderInRepository(
                 orderInService.getCurrentId(),
-                orderInService.userId,
-                orderInService.from_station_id,
-                orderInService.to_station_id,
-                orderInService.status,
-                orderInService.created
+                orderInService.getUserId(),
+                orderInService.getFrom_station_id(),
+                orderInService.getTo_station_id(),
+                orderInService.getStatus(),
+                orderInService.getCreated()
         );
     }
 }

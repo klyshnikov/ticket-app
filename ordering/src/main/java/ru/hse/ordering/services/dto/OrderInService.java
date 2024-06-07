@@ -1,14 +1,15 @@
 package ru.hse.ordering.services.dto;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
-
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class OrderInService{
-
-    private Long id;
 
     public Long getCurrentId() {
         return id;
@@ -30,13 +31,15 @@ public class OrderInService{
         this.created = created;
     }
 
-    public Long userId;
+    private Long id;
 
-    public Long from_station_id;
+    private Long userId;
 
-    public Long to_station_id;
+    private Long from_station_id;
 
-    public Integer status;
+    private Long to_station_id;
 
-    public Timestamp created;
+    private Integer status;
+
+    private Timestamp created;
 }

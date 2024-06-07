@@ -1,19 +1,17 @@
 package ru.hse.ordering.repository.dto;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
+@Getter
 @Table(name = "order_table")
 @RequiredArgsConstructor
 public class OrderInRepository implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
 
     public Long getCurrentId() {
         return id;
@@ -49,20 +47,25 @@ public class OrderInRepository implements Serializable {
         this.created = created;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     @Column(name = "user_id", nullable = false)
-    public Long userId;
+    private Long userId;
 
     @Column(name = "from_station_id", nullable = false)
-    public Long from_station_id;
+    private Long from_station_id;
 
     @Column(name = "to_station_id", nullable = false)
-    public Long to_station_id;
+    private Long to_station_id;
 
     @Column(name = "status", nullable = false)
-    public Integer status;
+    private Integer status;
 
     @Column(name = "created", nullable = false)
-    public Timestamp created;
+    private Timestamp created;
 
 
 }

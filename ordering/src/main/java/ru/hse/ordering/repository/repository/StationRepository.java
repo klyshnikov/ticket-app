@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface StationRepository extends JpaRepository<StationInRepository, Long> {
     List<StationInRepository> findAll();
     Optional<StationInRepository> findByStation(String station);
+    List<StationInRepository> getAllById(Long id);
 }

@@ -4,10 +4,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.Timestamp;
 
+@Getter
 @RequiredArgsConstructor
 public class SessionInService {
     public SessionInService(Long id, Long user_id, String tocken, Timestamp expires) {
@@ -25,11 +27,11 @@ public class SessionInService {
     private Long id;
 
 
-    public Long user_id;
+    private Long user_id;
 
 
-    public String tocken;
+    private String tocken;
 
 
-    public Timestamp expires;
+    private Timestamp expires;
 }

@@ -30,22 +30,22 @@ public class AuthController {
 
     @Operation(summary = "Регистрация пользователя")
     @PostMapping("/sign-up")
-    public ResponseEntity<JwtAuthenticationResponse> signUp(@RequestBody @Valid SignUpRequest request) {
+    public ResponseEntity<String> signUp(@RequestBody @Valid SignUpRequest request) {
         try {
             return ResponseEntity.ok(authenticationService.signUp(request));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new JwtAuthenticationResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
 
     }
 
     @Operation(summary = "Авторизация пользователя")
     @PostMapping("/sign-in")
-    public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody @Valid SignInRequest request) {
+    public ResponseEntity<String> signIn(@RequestBody @Valid SignInRequest request) {
         try {
             return ResponseEntity.ok(authenticationService.signIn(request));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new JwtAuthenticationResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

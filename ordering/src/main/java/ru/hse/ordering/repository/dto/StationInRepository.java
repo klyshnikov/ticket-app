@@ -1,11 +1,13 @@
 package ru.hse.ordering.repository.dto;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
 
 @Entity
+@Getter
 @Table(name = "station")
 @RequiredArgsConstructor
 public class StationInRepository implements Serializable {
@@ -23,5 +25,5 @@ public class StationInRepository implements Serializable {
     }
 
     @Column(name = "station", nullable = false, unique = true)
-    public String station;
+    private String station;
 }

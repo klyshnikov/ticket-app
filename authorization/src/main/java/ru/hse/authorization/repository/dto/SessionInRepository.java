@@ -1,12 +1,15 @@
 package ru.hse.authorization.repository.dto;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
+@Getter
 @Table(name = "session")
 @RequiredArgsConstructor
 public class SessionInRepository implements Serializable {
@@ -27,12 +30,12 @@ public class SessionInRepository implements Serializable {
     private Long id;
 
     @Column(name = "user_id", nullable = false)
-    public Long user_id;
+    private Long user_id;
 
     @Column(name = "tocken", nullable = false)
-    public String tocken;
+    private String tocken;
 
     @Column(name = "expires", nullable = false)
-    public Timestamp expires;
+    private Timestamp expires;
 
 }

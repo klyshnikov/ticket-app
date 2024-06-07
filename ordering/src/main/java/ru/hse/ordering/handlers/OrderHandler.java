@@ -22,14 +22,14 @@ public class OrderHandler {
     public void handle() throws InterruptedException {
         System.out.println("Handle");
         Thread.sleep(10000);
-        var nonInitializedOrders = orderService.getAll().stream().filter(order -> order.status==0).toList();
+        var nonInitializedOrders = orderService.getAll().stream().filter(order -> order.getStatus()==0).toList();
         if (nonInitializedOrders.isEmpty()) {
             return;
         }
 
         var orderToChange = nonInitializedOrders.get(0);
 
-        orderToChange.status = 1;
+        orderToChange.setStatus(1);
 
         orderService.save(orderToChange);
     }

@@ -1,26 +1,30 @@
 package ru.hse.ordering.services.dto;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
 
 
-
+@Getter
 @RequiredArgsConstructor
 public class StationInService  {
-
-
-    private Long id;
 
     public Long currentId() {
         return id;
     }
 
-    public StationInService(Long id, String station) {
+    public StationInService(String station) {
         this.station = station;
     }
 
+    public StationInService(Long id, String station) {
+        this.id = id;
+        this.station = station;
+    }
 
-    public String station;
+    private Long id;
+
+    private String station;
 }

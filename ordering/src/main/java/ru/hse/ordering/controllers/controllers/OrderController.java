@@ -30,8 +30,8 @@ public class OrderController {
     }
 
     @PostMapping("/add-station")
-    public ResponseEntity<String> addStation(@RequestBody StationInService stationInService) {
-        stationService.add(stationInService);
+    public ResponseEntity<String> addStation(@RequestParam String stationName) {
+        stationService.add(stationName);
         return ResponseEntity.ok("Добавлено!");
     }
 

@@ -19,13 +19,13 @@ import java.util.List;
 public class UserInService implements UserDetails {
     private Long id;
 
-    public String nickname;
+    private String nickname;
 
-    public String email;
+    private String email;
 
-    public String password;
+    private String password;
 
-    public Timestamp timestamp;
+    private Timestamp timestamp;
 
     public Long getCurrentId() {
         return id;

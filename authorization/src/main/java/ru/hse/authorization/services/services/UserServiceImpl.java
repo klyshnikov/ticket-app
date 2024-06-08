@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import ru.hse.authorization.mappers.UserMapper;
 import ru.hse.authorization.repository.dto.UserInRepository;
 import ru.hse.authorization.repository.repository.UserRepository;
+import ru.hse.authorization.services.api.UserService;
 import ru.hse.authorization.services.dto.UserInService;
 import ru.hse.authorization.services.exceptions.UserIsNotRegisteredException;
 
@@ -19,25 +20,16 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserServiceImpl implements UserService {
     private final UserRepository repository;
 
-    /**
-     * Сохранение пользователя
-     *
-     * @return сохраненный пользователь
-     */
+    @Override
     public UserInService save(UserInService user) {
         UserMapper mapper = new UserMapper();
         return mapper.RepositoryUserToServiceUser(repository.save(mapper.ServiceUserToRepositoryUser(user)));
     }
 
-
-    /**
-     * Создание пользователя
-     *
-     * @return созданный пользователь
-     */
+    @Override
     public UserInService create(UserInService user) {
 
         if (repository.existsByEmail(user.getEmail())) {
@@ -47,11 +39,7 @@ public class UserService {
         return save(user);
     }
 
-    /**
-     * Получение пользователя по имени пользователя
-     *
-     * @return пользователь
-     */
+    @Override
     public UserInService getByUsername(String username) {
         UserMapper mapper = new UserMapper();
         return mapper.RepositoryUserToServiceUser(repository.findByNickname(username)
@@ -59,31 +47,19 @@ public class UserService {
 
     }
 
-    /**
-     * Получение пользователя по имени пользователя
-     * <p>
-     * Нужен для Spring Security
-     *
-     * @return пользователь
-     */
+    @Override
     public UserDetailsService userDetailsService() {
         return this::getByUsername;
     }
 
-    /**
-     * Получение текущего пользователя
-     *
-     * @return текущий пользователь
-     */
-
+    @Override
     public UserInService getCurrentUserByName() {
         // Получение имени пользователя из контекста Spring Security
         var username = SecurityContextHolder.getContext().getAuthentication().getName();
         return getByUsername(username);
     }
 
-
-
+    @Override
     public List<UserInService> getAllUsers() {
         UserMapper mapper = new UserMapper();
 
@@ -98,7 +74,7 @@ public class UserService {
         return userInServiceList;
     }
 
-
+    @Override
     public String getUserEmail() throws UserIsNotRegisteredException {
         var currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (currentUser instanceof UserInService) {
@@ -108,12 +84,14 @@ public class UserService {
         throw new UserIsNotRegisteredException("На данный момент вы незарегистрированный пользователь");
     }
 
+    @Override
     public UserInService getUserByEmail(String email) {
         UserMapper mapper = new UserMapper();
         return mapper.RepositoryUserToServiceUser(repository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден")));
     }
 
+    @Override
     public UserInService getCurrentUserByEmail() throws UserIsNotRegisteredException {
         return getUserByEmail(getUserEmail());
     }

@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.hse.authorization.domain.JwtAuthenticationResponse;
 import ru.hse.authorization.domain.SignUpRequest;
 import ru.hse.authorization.domain.SignInRequest;
+import ru.hse.authorization.services.api.AuthenticationService;
+import ru.hse.authorization.services.api.JwtService;
+import ru.hse.authorization.services.api.SessionService;
+import ru.hse.authorization.services.api.UserService;
 import ru.hse.authorization.services.dto.UserInService;
 import ru.hse.authorization.services.exceptions.UserIsNotRegisteredException;
 import ru.hse.authorization.services.filter.UserChainHandler;
@@ -17,13 +20,14 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationService {
+public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserService userService;
     private final SessionService sessionService;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
+    @Override
     public String signUp(SignUpRequest request) {
 
         UserChainHandler userChainHandler = new UserChainHandlerStarter();
@@ -46,6 +50,7 @@ public class AuthenticationService {
         return jwt;
     }
 
+    @Override
     public String signIn(SignInRequest request) {
 
         var user = userService
@@ -58,6 +63,7 @@ public class AuthenticationService {
 
     }
 
+    @Override
     public UserInService getCurrentUser() throws UserIsNotRegisteredException {
         return userService.getCurrentUserByEmail();
     }

@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hse.authorization.controllers.api.AuthApi;
-import ru.hse.authorization.domain.JwtAuthenticationResponse;
 import ru.hse.authorization.domain.SignInRequest;
 import ru.hse.authorization.domain.SignUpRequest;
-import ru.hse.authorization.repository.dto.UserInRepository;
-import ru.hse.authorization.repository.repository.UserRepository;
+import ru.hse.authorization.services.api.AuthenticationService;
+import ru.hse.authorization.services.api.UserService;
 import ru.hse.authorization.services.dto.UserInService;
-import ru.hse.authorization.services.services.AuthenticationService;
-import ru.hse.authorization.services.services.UserService;
+import ru.hse.authorization.services.services.AuthenticationServiceImpl;
+import ru.hse.authorization.services.services.UserServiceImpl;
 
 import java.util.List;
 

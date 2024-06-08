@@ -8,6 +8,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import ru.hse.authorization.services.api.JwtService;
 import ru.hse.authorization.services.dto.UserInService;
 
 import java.security.Key;
@@ -17,15 +18,17 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JwtService {
+public class JwtServiceImpl implements JwtService {
     @Value("${token.signing.key}")
     private String jwtSigningKey;
 
 
+    @Override
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
+    @Override
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         if (userDetails instanceof UserInService customUserDetails) {
@@ -36,13 +39,13 @@ public class JwtService {
         return generateToken(claims, userDetails);
     }
 
+    @Override
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String userName = extractUserName(token);
         System.out.println(userName.equals(userDetails.getUsername()));
         System.out.println(!isTokenExpired(token));
         return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
-
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
         final Claims claims = extractAllClaims(token);

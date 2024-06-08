@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hse.authorization.services.exceptions.UserIsNotRegisteredException;
-import ru.hse.authorization.services.services.AuthenticationService;
-import ru.hse.ordering.services.dto.OrderInService;
+import ru.hse.authorization.services.services.AuthenticationServiceImpl;
 import ru.hse.ordering.services.dto.StationInService;
 import ru.hse.ordering.services.services.OrderService;
 import ru.hse.ordering.services.services.StationService;
@@ -17,13 +16,13 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     private final StationService stationService;
-    private final AuthenticationService authenticationService;
+    private final AuthenticationServiceImpl authenticationService;
 
     @Autowired
     public OrderController(
             OrderService orderService,
             StationService stationService,
-            AuthenticationService authenticationService) {
+            AuthenticationServiceImpl authenticationService) {
         this.orderService = orderService;
         this.stationService = stationService;
         this.authenticationService = authenticationService;

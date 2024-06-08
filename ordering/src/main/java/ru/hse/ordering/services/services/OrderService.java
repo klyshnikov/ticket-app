@@ -4,10 +4,8 @@ package ru.hse.ordering.services.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hse.authorization.repository.repository.UserRepository;
-import ru.hse.authorization.services.dto.UserInService;
 import ru.hse.authorization.services.exceptions.UserIsNotRegisteredException;
-import ru.hse.authorization.services.services.AuthenticationService;
-import ru.hse.authorization.services.services.UserService;
+import ru.hse.authorization.services.services.AuthenticationServiceImpl;
 import ru.hse.ordering.mappers.OrderMapper;
 import ru.hse.ordering.mappers.StationMapper;
 import ru.hse.ordering.repository.dto.OrderInRepository;
@@ -15,7 +13,6 @@ import ru.hse.ordering.repository.dto.StationInRepository;
 import ru.hse.ordering.repository.repository.OrderRepository;
 import ru.hse.ordering.repository.repository.StationRepository;
 import ru.hse.ordering.services.dto.OrderInService;
-import ru.hse.ordering.services.dto.StationInService;
 import ru.hse.ordering.services.exceptions.EqualStationsException;
 import ru.hse.ordering.services.exceptions.StationIsNotFoundException;
 
@@ -28,14 +25,14 @@ import java.util.List;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final StationRepository stationRepository;
-    private final AuthenticationService authenticationService;
+    private final AuthenticationServiceImpl authenticationService;
     private final UserRepository userRepository;
 
     @Autowired
     public OrderService(
             OrderRepository orderRepository,
             StationRepository stationRepository,
-            AuthenticationService authenticationService,
+            AuthenticationServiceImpl authenticationService,
             UserRepository userRepository) {
         this.orderRepository = orderRepository;
         this.stationRepository = stationRepository;

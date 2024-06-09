@@ -1,32 +1,32 @@
 package ru.hse.ordering.services.services;
 
-import jakarta.persistence.*;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hse.ordering.mappers.StationMapper;
 import ru.hse.ordering.repository.dto.StationInRepository;
 import ru.hse.ordering.repository.repository.StationRepository;
+import ru.hse.ordering.services.api.StationService;
 import ru.hse.ordering.services.dto.StationInService;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class StationService {
+public class StationServiceImpl implements StationService {
     private final StationRepository stationRepository;
 
     @Autowired
-    public StationService(StationRepository stationRepository) {
+    public StationServiceImpl(StationRepository stationRepository) {
         this.stationRepository = stationRepository;
     }
 
+    @Override
     public void add(String stationName) {
         StationMapper mapper = new StationMapper();
         stationRepository.save(mapper.StationInServiceToStationInRepository(new StationInService(stationName)));
     }
 
+    @Override
     public List<StationInService> getAll() {
         List<StationInRepository> stationInRepositoryList = stationRepository.findAll();
 

@@ -1,12 +1,10 @@
 package ru.hse.ordering.handlers;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import ru.hse.ordering.mappers.OrderMapper;
-import ru.hse.ordering.services.services.OrderService;
+import ru.hse.ordering.services.api.OrderService;
+import ru.hse.ordering.services.services.OrderServiceImpl;
 
 @Service
 @Slf4j

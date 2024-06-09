@@ -3,42 +3,49 @@ package ru.hse.ordering.controllers.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hse.authorization.services.api.AuthenticationService;
 import ru.hse.authorization.services.exceptions.UserIsNotRegisteredException;
 import ru.hse.authorization.services.services.AuthenticationServiceImpl;
+import ru.hse.ordering.controllers.api.OrderApi;
+import ru.hse.ordering.services.api.OrderService;
+import ru.hse.ordering.services.api.StationService;
 import ru.hse.ordering.services.dto.StationInService;
-import ru.hse.ordering.services.services.OrderService;
-import ru.hse.ordering.services.services.StationService;
+import ru.hse.ordering.services.services.OrderServiceImpl;
+import ru.hse.ordering.services.services.StationServiceImpl;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/order")
-public class OrderController {
+public class OrderController implements OrderApi {
     private final OrderService orderService;
     private final StationService stationService;
-    private final AuthenticationServiceImpl authenticationService;
+    private final AuthenticationService authenticationService;
 
     @Autowired
     public OrderController(
             OrderService orderService,
             StationService stationService,
-            AuthenticationServiceImpl authenticationService) {
+            AuthenticationService authenticationService) {
         this.orderService = orderService;
         this.stationService = stationService;
         this.authenticationService = authenticationService;
     }
 
+    @Override
     @PostMapping("/add-station")
     public ResponseEntity<String> addStation(@RequestParam String stationName) {
         stationService.add(stationName);
         return ResponseEntity.ok("Добавлено!");
     }
 
+    @Override
     @GetMapping("/get-all-stations")
     public ResponseEntity<List<StationInService>> getAllStations() {
         return ResponseEntity.ok(stationService.getAll());
     }
-    
+
+    @Override
     @PostMapping("/make-order")
     public ResponseEntity<String> makeOrder(
             @RequestParam String stationFrom,
@@ -54,6 +61,7 @@ public class OrderController {
 
     }
 
+    @Override
     @GetMapping("/get-my-orders")
     public ResponseEntity<String> getMyOrders() throws UserIsNotRegisteredException {
         return ResponseEntity.ok(orderService.getMyOrders());

@@ -10,9 +10,10 @@ dependencies {
     // Data
     implementation 'org.springframework.data:spring-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    runtimeOnly 'com.h2database:h2'
-    implementation 'org.liquibase:liquibase-core'
-    //implementation 'org.postgresql:postgresql'
+    //runtimeOnly 'com.h2database:h2'
+    //implementation 'org.liquibase:liquibase-core'
+    implementation 'org.postgresql:postgresql'
+    runtimeOnly("org.postgresql:postgresql")
     //implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
     // Authentication

@@ -21,7 +21,7 @@ public class EmailUserChainHandler implements UserChainHandler{
         Matcher matcher = pattern.matcher(request.getEmail());
         if (!matcher.matches()) {
             throw new EmailIsNotAvailableException(
-                    "Некорректный email.\n " +
+                    "Некорректный email.\n" +
                             "В email должны содержаться латинские буквы и цифры, а так же присутвовать символы @ и . один раз в таком порядке. \n" +
                             "Пример правильного email: misha@gmail.com"
             );

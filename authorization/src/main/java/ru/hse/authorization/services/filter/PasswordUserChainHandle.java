@@ -1,9 +1,6 @@
 package ru.hse.authorization.services.filter;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.hse.authorization.domain.SignUpRequest;
-import ru.hse.authorization.services.dto.UserInService;
 import ru.hse.authorization.services.exceptions.EmailIsNotAvailableException;
 
 import java.util.regex.Matcher;
@@ -24,7 +21,10 @@ public class PasswordUserChainHandle implements UserChainHandler {
         Matcher matcher = pattern.matcher(request.getPassword());
         if (!matcher.matches()) {
             throw new EmailIsNotAvailableException(
-                    "Некорректный пароль"
+                    "Некорректный пароль \n" +
+                            "В пароле должны содержаться хотя-бы одна маленькая латинская буква, хотя-бы одна" +
+                            "большая латинская буква, цифра, спец символ из списка [@$!%*?&].\n" +
+                            "Других символов быть не должно"
             );
         }
     }

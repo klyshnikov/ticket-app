@@ -1,7 +1,6 @@
 package ru.hse.authorization.repository.dto;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

@@ -1,7 +1,5 @@
 package ru.hse.ordering.services.services;
 
-//import lombok.var;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hse.authorization.repository.repository.UserRepository;
 import ru.hse.authorization.services.api.AuthenticationService;
@@ -29,7 +27,6 @@ public class OrderServiceImpl implements OrderService {
     private final AuthenticationService authenticationService;
     private final UserRepository userRepository;
 
-    @Autowired
     public OrderServiceImpl(
             OrderRepository orderRepository,
             StationRepository stationRepository,

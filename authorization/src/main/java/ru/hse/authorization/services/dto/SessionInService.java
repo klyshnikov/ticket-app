@@ -1,9 +1,5 @@
 package ru.hse.authorization.services.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -23,15 +19,11 @@ public class SessionInService {
         return id;
     }
 
-
     private Long id;
-
 
     private Long user_id;
 
-
     private String tocken;
-
 
     private Timestamp expires;
 }

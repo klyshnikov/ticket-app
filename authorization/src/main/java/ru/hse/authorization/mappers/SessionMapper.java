@@ -19,7 +19,7 @@ public class SessionMapper {
     ) {
         return new SessionInService(
                 sessionInRepository.getCurrentId(),
-                sessionInRepository.getUser_id(),
+                sessionInRepository.getUserId(),
                 sessionInRepository.getTocken(),
                 sessionInRepository.getExpires());
     }

@@ -3,7 +3,6 @@ package ru.hse.authorization.repository.dto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -15,7 +14,7 @@ import java.sql.Timestamp;
 public class SessionInRepository implements Serializable {
 
     public SessionInRepository(Long user_id, String tocken, Timestamp expires) {
-        this.user_id = user_id;
+        this.userId = user_id;
         this.tocken = tocken;
         this.expires = expires;
     }
@@ -30,7 +29,7 @@ public class SessionInRepository implements Serializable {
     private Long id;
 
     @Column(name = "user_id", nullable = false)
-    private Long user_id;
+    private Long userId;
 
     @Column(name = "token", nullable = false)
     private String tocken;

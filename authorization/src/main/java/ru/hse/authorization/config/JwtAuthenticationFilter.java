@@ -16,8 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ru.hse.authorization.services.api.JwtService;
 import ru.hse.authorization.services.api.UserService;
-import ru.hse.authorization.services.services.JwtServiceImpl;
-import ru.hse.authorization.services.services.UserServiceImpl;
 
 
 import java.io.IOException;

@@ -1,7 +1,6 @@
 package ru.hse.ordering.repository.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.hse.authorization.repository.dto.UserInRepository;
 import ru.hse.ordering.repository.dto.StationInRepository;
 
 import java.util.List;

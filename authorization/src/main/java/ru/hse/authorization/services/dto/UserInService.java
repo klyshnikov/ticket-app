@@ -1,7 +1,5 @@
 package ru.hse.authorization.services.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
-
 
 @Builder
 @Getter

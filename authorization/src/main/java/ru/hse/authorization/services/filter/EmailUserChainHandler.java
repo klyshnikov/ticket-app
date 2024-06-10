@@ -1,7 +1,6 @@
 package ru.hse.authorization.services.filter;
 
 import ru.hse.authorization.domain.SignUpRequest;
-import ru.hse.authorization.services.dto.UserInService;
 import ru.hse.authorization.services.exceptions.EmailIsNotAvailableException;
 
 import java.util.regex.Matcher;
@@ -22,7 +21,9 @@ public class EmailUserChainHandler implements UserChainHandler{
         Matcher matcher = pattern.matcher(request.getEmail());
         if (!matcher.matches()) {
             throw new EmailIsNotAvailableException(
-                    "Некорректный email. Пример правильного email: misha@gmail.com"
+                    "Некорректный email.\n " +
+                            "В email должны содержаться латинские буквы и цифры, а так же присутвовать символы @ и . один раз в таком порядке. \n" +
+                            "Пример правильного email: misha@gmail.com"
             );
         }
         getNextHandler().handle(request);

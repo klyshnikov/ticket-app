@@ -1,6 +1,5 @@
 package ru.hse.ordering.services.dto;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

@@ -14,9 +14,7 @@ import ru.hse.authorization.services.exceptions.UserIsNotRegisteredException;
 
 import java.util.ArrayList;
 import java.util.List;
-//import ru.minusd.security.domain.model.Role;
-//import ru.minusd.security.domain.model.User;
-//import ru.minusd.security.repository.UserRepository;
+
 
 @Service
 @RequiredArgsConstructor

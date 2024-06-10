@@ -37,7 +37,6 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 @RequiredArgsConstructor
 @OpenAPIDefinition(
-        info = @Info(title = "Пример генерации OpenAPI из Spring MVC", version = "1.0.0"),
         security = @SecurityRequirement(name = "BearerAuth"))
 @SecurityScheme(
         type = SecuritySchemeType.HTTP,

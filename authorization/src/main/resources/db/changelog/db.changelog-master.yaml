@@ -55,7 +55,7 @@
 #                    references: users(id)
 #              - column:
 #                  name: token
-#                  type: varchar(1023)
+#                  type: varchar(255)
 #                  constraints:
 #                    nullable: false
 #              - column:

@@ -32,7 +32,7 @@ public class SessionInRepository implements Serializable {
     @Column(name = "user_id", nullable = false)
     private Long user_id;
 
-    @Column(name = "tocken", nullable = false)
+    @Column(name = "token", nullable = false)
     private String tocken;
 
     @Column(name = "expires", nullable = false)

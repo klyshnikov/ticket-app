@@ -12,7 +12,7 @@ ordering/Tasks/application/bootRun
 ``` bash
  ./gradlew ordering:bootRun
 ```
-3. Запустить через docker-compouse. Предварительно надо собрать проект. Для этого надо в IntelliJIdea в правой панели gradle выполнить
+2. Запустить через docker-compouse. Предварительно надо собрать проект. Для этого надо в IntelliJIdea в правой панели gradle выполнить
 ```
 ordering/Tasks/build/assembly
 ```
@@ -71,7 +71,13 @@ Request body
 ### /auth/get-all
 Получить всех пользователей (для упрощеннго тестирования).
 
+Request body
+```
+{}
+```
+
 ## order-controller
+
 
 ### /order/make-order
 Сделать заказ на новый билет.
@@ -96,11 +102,19 @@ Request body
 
 ### /order/get-my-orders
 Получить все заказы текущего пользователя.
-Request body
-{}
 
+Request body
+```
+{}
+```
 ### /order/get-all-stations
+
 Получить список всех доступных станций.
+
+Request body
+```
+{}
+```
 
 Request body
 ```
